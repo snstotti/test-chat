@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import firebase from 'firebase';
+import FormMessage from './component/FormMessage/FormMessage';
+import ListMessage from './component/ListMessage/ListMessage';
 
 function App() {
+
+  const [message, setMessage] = React.useState('')
+
+ 
+
+  React.useEffect(()=>{
+    const db = firebase.database()
+    const ref = db.ref('name')
+    ref.on('value',(elem)=>console.log(elem.val()))
+    
+  },[])
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="d-flex flex-column">
+        <FormMessage 
+          setMessage={setMessage}
+          message={message} />
+        
+        <ListMessage />
+
+      </div>
     </div>
   );
 }
