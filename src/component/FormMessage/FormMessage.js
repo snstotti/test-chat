@@ -4,17 +4,25 @@ import './FormMessage.css'
 export default function FormMessage({setMessage,message,pushMessage}) {
 
      /**
-     * 
-     *
-     * 
+     * Записываем значение ввода 
      * @param  {object} e - Объект события.
-     * @return {string} - Текст сообщения.
+     * @function setMessage
+     * @param  {string} target - Значение ввода.
      */
 
     const handleMessage =(e)=>{
         let target = e.target.value
         setMessage(target)
     }
+
+    /**
+     * Отправляем значение на сервер
+     * @param  {object} e - Объект события.
+     * @param {object} message - Содержит уникальный ключ и значение
+     * @function pushMessage - Отправляет значение на сервер
+     * @function setMessage - Очищаем поле инпута
+     * @function preventDefault - Метод интерфейса Event
+     */
 
     const submitMessage =(e)=>{
         if(!message) return e.preventDefault();

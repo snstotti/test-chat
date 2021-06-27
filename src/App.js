@@ -5,9 +5,21 @@ import FormMessage from './component/FormMessage/FormMessage';
 import ListMessage from './component/ListMessage/ListMessage';
 
 function App() {
- 
+  /**
+  * состояние ввода сообщения (по умолчанию "")
+  */
   const [message, setMessage] = React.useState('')
+
+  /**
+  * состояние обЪекта полученного с сервера (по умолчанию [])
+  */
   const [dbValue, setdbValue] = React.useState([])
+
+   /**
+     * Отправляем значение на сервер
+     * @param  {string} value - Текст сообщения
+     * @param {string} message - Ключ для создания объекта в БД
+     */
 
   const pushMessage =(value)=>{
     const db = firebase.database()
@@ -17,6 +29,13 @@ function App() {
   
  
   React.useEffect(()=>{
+    /**
+     * Получаем значение с сервера
+     * @param {string} message - Ключ по которому забираем объект
+     * @param  {string} value - тип значения value
+     * @param  {object} elem - Объект получаемый с БД
+     * @method val - Метод который забирает значение из обЪекта elem
+     */
     const getMessagesFromdb =()=>{
       const db = firebase.database()
       const ref = db.ref('message')
@@ -26,12 +45,6 @@ function App() {
     
   },[])
 
-  console.log(dbValue);
-
-  
-
-
-  if(!dbValue[0])return '...Loading'
   return (
     <div className="section">
       <div className="section__container">
