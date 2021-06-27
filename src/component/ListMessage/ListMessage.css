@@ -1,0 +1,18 @@
+.list-group {
+    padding:0;
+    list-style: none;
+}
+.list-group__item{
+    padding:6px;
+}
+.list-group__item:before {
+    padding-right:10px;
+    font-weight: bold;
+    color: #C0C0C0;
+    content: "\2714";
+    transition-duration: 0.5s;
+}
+.list-group__item:hover:before {
+    color: #337AB7;
+    content: "\2714";
+} 

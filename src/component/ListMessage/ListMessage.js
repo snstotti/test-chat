@@ -1,14 +1,21 @@
 import React from 'react'
+import './ListMessage.css'
 
-export default function ListMessage() {
+export default function ListMessage({ setList,dbValue }) {
+    
+    const itemList = (list) => {
+        
+        let arrItem = []
+        for (let item in list) {
+            arrItem.push(<li key={item} className="list-group__item">{list[item]}</li>) 
+        }
+        return arrItem
+    }
+    
     return (
         <div>
             <ul className="list-group" style={{ maxWidth: 800 }}>
-                <li className="list-group-item active" aria-current="true">An active item</li>
-                <li className="list-group-item">A second item</li>
-                <li className="list-group-item">A third item</li>
-                <li className="list-group-item">A fourth item</li>
-                <li className="list-group-item">And a fifth one</li>
+                {itemList(dbValue)}
             </ul>
         </div>
     )

@@ -1,33 +1,48 @@
 import React from 'react';
+import './App.css';
 import firebase from 'firebase';
 import FormMessage from './component/FormMessage/FormMessage';
 import ListMessage from './component/ListMessage/ListMessage';
 
 function App() {
-
-  const [message, setMessage] = React.useState('')
-
  
+  const [message, setMessage] = React.useState('')
+  const [dbValue, setdbValue] = React.useState([])
 
-  React.useEffect(()=>{
+  const pushMessage =(value)=>{
     const db = firebase.database()
-    const ref = db.ref('name')
-    ref.on('value',(elem)=>console.log(elem.val()))
+    db.ref('message').push(value)
+  }
+  
+  
+ 
+  React.useEffect(()=>{
+    const getMessagesFromdb =()=>{
+      const db = firebase.database()
+      const ref = db.ref('message')
+      ref.on('value',(elem)=>setdbValue([elem.val()]))
+    }
+    getMessagesFromdb()
     
   },[])
 
+  console.log(dbValue);
+
+  
 
 
+  if(!dbValue[0])return '...Loading'
   return (
-    <div className="container">
-      <div className="d-flex flex-column">
-        <FormMessage 
+    <div className="section">
+      <div className="section__container">
+      <FormMessage 
           setMessage={setMessage}
-          message={message} />
+          message={message}
+          pushMessage={pushMessage} />
         
-        <ListMessage />
-
+        <ListMessage dbValue={dbValue[0]} />
       </div>
+        
     </div>
   );
 }
